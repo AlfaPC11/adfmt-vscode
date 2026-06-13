@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant
+
+allowBuilds:
+  '@vscode/vsce-sign': false
+  keytar: false

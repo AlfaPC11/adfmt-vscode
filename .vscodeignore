@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant
+
+.git/**
+.github/**
+.vscode/**
+node_modules/**
+src/**
+tsconfig.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.gitignore
+SECURITY.md
+*.vsix

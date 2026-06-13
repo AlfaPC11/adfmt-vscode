@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alfa.dev/schemas/adfmt.schema.json",
+  "$comment": "SPDX-License-Identifier: BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant",
+  "title": "Alfa's D Formatter configuration",
+  "description": "Configuration for adfmt. The file name is .adfmt and its syntax is YAML.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Language": {
+      "const": "D",
+      "description": "Source language formatted by this configuration."
+    },
+    "BasedOnStyle": {
+      "type": "string",
+      "enum": [
+        "Alfa",
+        "dfmt"
+      ],
+      "description": "Base style used before applying the remaining options."
+    },
+    "DisableFormat": {
+      "type": "boolean",
+      "default": false,
+      "description": "Return source text unchanged when enabled."
+    },
+    "ColumnLimit": {
+      "$ref": "#/$defs/positiveInteger"
+    },
+    "SoftColumnLimit": {
+      "$ref": "#/$defs/positiveInteger"
+    },
+    "LineEnding": {
+      "type": "string",
+      "enum": [
+        "default",
+        "lf",
+        "cr",
+        "crlf"
+      ]
+    },
+    "Indent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Width": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "TabWidth": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "Style": {
+          "type": "string",
+          "enum": [
+            "space",
+            "tab",
+            "never",
+            "always"
+          ]
+        },
+        "AlignSwitchStatements": {
+          "type": "boolean"
+        },
+        "OutdentAttributes": {
+          "type": "boolean"
+        },
+        "SingleContinuationIndent": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Braces": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Default": {
+          "$ref": "#/$defs/braceStyle"
+        },
+        "Declarations": {
+          "$ref": "#/$defs/braceStyle"
+        },
+        "ControlStatements": {
+          "$ref": "#/$defs/braceStyle"
+        }
+      }
+    },
+    "Spacing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "AfterCast": {
+          "type": "boolean"
+        },
+        "AfterKeywords": {
+          "type": "boolean"
+        },
+        "BeforeFunctionParameters": {
+          "type": "boolean"
+        },
+        "SelectiveImports": {
+          "type": "boolean"
+        },
+        "BeforeAssociativeArrayColon": {
+          "type": "boolean"
+        },
+        "BeforeNamedArgumentColon": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Wrapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "KeepExistingLineBreaks": {
+          "type": "boolean"
+        },
+        "SplitOperatorAtLineEnd": {
+          "type": "boolean"
+        },
+        "ReflowPropertyChains": {
+          "type": "boolean"
+        },
+        "TemplateConstraints": {
+          "$ref": "#/$defs/templateConstraintStyle"
+        },
+        "SingleTemplateConstraintIndent": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Statements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "CompactLabels": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IndentWidth": {
+      "$ref": "#/$defs/positiveInteger"
+    },
+    "TabWidth": {
+      "$ref": "#/$defs/positiveInteger"
+    },
+    "UseTab": {
+      "type": "string",
+      "enum": [
+        "never",
+        "always",
+        "space",
+        "tab"
+      ]
+    },
+    "AlignSwitchStatements": {
+      "type": "boolean"
+    },
+    "OutdentAttributes": {
+      "type": "boolean"
+    },
+    "SingleIndent": {
+      "type": "boolean"
+    },
+    "BraceStyle": {
+      "$ref": "#/$defs/braceStyle"
+    },
+    "DeclarationBraceStyle": {
+      "$ref": "#/$defs/braceStyle"
+    },
+    "ControlBraceStyle": {
+      "$ref": "#/$defs/braceStyle"
+    },
+    "SpaceAfterCast": {
+      "type": "boolean"
+    },
+    "SpaceAfterKeywords": {
+      "type": "boolean"
+    },
+    "SpaceBeforeFunctionParameters": {
+      "type": "boolean"
+    },
+    "SelectiveImportSpace": {
+      "type": "boolean"
+    },
+    "SpaceBeforeAssociativeArrayColon": {
+      "type": "boolean"
+    },
+    "SpaceBeforeNamedArgumentColon": {
+      "type": "boolean"
+    },
+    "KeepLineBreaks": {
+      "type": "boolean"
+    },
+    "SplitOperatorAtLineEnd": {
+      "type": "boolean"
+    },
+    "ReflowPropertyChains": {
+      "type": "boolean"
+    },
+    "TemplateConstraintStyle": {
+      "$ref": "#/$defs/templateConstraintStyle"
+    },
+    "SingleTemplateConstraintIndent": {
+      "type": "boolean"
+    },
+    "CompactLabeledStatements": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "positiveInteger": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "braceStyle": {
+      "type": "string",
+      "enum": [
+        "allman",
+        "otbs",
+        "stroustrup",
+        "knr"
+      ]
+    },
+    "templateConstraintStyle": {
+      "type": "string",
+      "enum": [
+        "conditional-newline-indent",
+        "conditional-newline",
+        "always-newline",
+        "always-newline-indent",
+        "conditional_newline_indent",
+        "conditional_newline",
+        "always_newline",
+        "always_newline_indent"
+      ]
+    }
+  }
+}

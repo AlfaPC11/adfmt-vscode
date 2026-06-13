@@ -1,0 +1,145 @@
+{
+  "name": "adfmt",
+  "displayName": "adfmt - Alfa's D Formatter",
+  "description": "Format D source files with adfmt and validate extensionless .adfmt YAML configuration files.",
+  "version": "0.2.0",
+  "publisher": "alfa",
+  "license": "BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant",
+  "author": {
+    "name": "Alfa"
+  },
+  "homepage": "https://github.com/AlfaPC11/adfmt-vscode#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlfaPC11/adfmt-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlfaPC11/adfmt-vscode/issues"
+  },
+  "pricing": "Free",
+  "galleryBanner": {
+    "color": "#282828",
+    "theme": "dark"
+  },
+  "packageManager": "pnpm@11.3.0",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Formatters",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "D",
+    "formatter",
+    "adfmt",
+    "dfmt",
+    "YAML"
+  ],
+  "activationEvents": [
+    "onLanguage:d",
+    "onCommand:adfmt.checkInstallation",
+    "onCommand:adfmt.showOutput"
+  ],
+  "main": "./dist/extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "adfmt executes a local formatter process and is disabled in untrusted workspaces."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "adfmt needs a local working directory and executable."
+    }
+  },
+  "extensionDependencies": [
+    "redhat.vscode-yaml"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "d",
+        "aliases": [
+          "D",
+          "d"
+        ],
+        "extensions": [
+          ".d"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "adfmt.checkInstallation",
+        "title": "adfmt: Check Installation"
+      },
+      {
+        "command": "adfmt.showOutput",
+        "title": "adfmt: Show Output"
+      }
+    ],
+    "configuration": {
+      "title": "adfmt",
+      "properties": {
+        "adfmt.executablePath": {
+          "type": "string",
+          "default": "adfmt",
+          "scope": "resource",
+          "description": "Path or command name of the adfmt executable."
+        },
+        "adfmt.arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "resource",
+          "description": "Additional arguments passed to adfmt."
+        },
+        "adfmt.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "scope": "window",
+          "description": "Controls adfmt output-channel logging."
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[d]": {
+        "editor.defaultFormatter": "alfa.adfmt",
+        "editor.formatOnSave": true
+      },
+      "files.associations": {
+        ".adfmt": "yaml"
+      }
+    },
+    "yamlValidation": [
+      {
+        "fileMatch": ".adfmt",
+        "url": "./schemas/adfmt.schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "check": "tsc -p ./ --noEmit",
+    "package": "vsce package --no-dependencies",
+    "publish:marketplace": "vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.6.0",
+    "typescript": "^5.9.0"
+  }
+}
