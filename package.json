@@ -2,7 +2,7 @@
   "name": "adfmt",
   "displayName": "adfmt - Alfa's D Formatter",
   "description": "Format D source files with adfmt and validate extensionless .adfmt YAML configuration files.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "alfa",
   "license": "BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant",
   "author": {
