@@ -2,7 +2,7 @@
   "name": "adfmt",
   "displayName": "adfmt - Alfa's D Formatter",
   "description": "Format D source files with adfmt and validate extensionless .adfmt YAML configuration files.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "alfa",
   "license": "BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant",
   "author": {
@@ -39,6 +39,7 @@
   "activationEvents": [
     "onLanguage:d",
     "onCommand:adfmt.checkInstallation",
+    "onCommand:adfmt.createConfiguration",
     "onCommand:adfmt.showOutput"
   ],
   "main": "./dist/extension.js",
@@ -78,6 +79,10 @@
         "title": "adfmt: Check Installation"
       },
       {
+        "command": "adfmt.createConfiguration",
+        "title": "adfmt: Create or Open Configuration"
+      },
+      {
         "command": "adfmt.showOutput",
         "title": "adfmt: Show Output"
       }
@@ -99,6 +104,14 @@
           "default": [],
           "scope": "resource",
           "description": "Additional arguments passed to adfmt."
+        },
+        "adfmt.formatTimeout": {
+          "type": "number",
+          "default": 15000,
+          "minimum": 1000,
+          "maximum": 120000,
+          "scope": "resource",
+          "description": "Maximum time in milliseconds allowed for one formatting operation."
         },
         "adfmt.trace.server": {
           "type": "string",
@@ -133,7 +146,7 @@
     "vscode:prepublish": "pnpm run compile",
     "compile": "tsc -p ./",
     "check": "tsc -p ./ --noEmit",
-    "package": "vsce package --no-dependencies",
+    "package": "vsce package --no-dependencies --out adfmt-${npm_package_version}.vsix",
     "publish:marketplace": "vsce publish --no-dependencies"
   },
   "devDependencies": {

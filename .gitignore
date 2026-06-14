@@ -3,3 +3,4 @@
 dist/
 node_modules/
 *.vsix
+!adfmt-0.2.2.vsix

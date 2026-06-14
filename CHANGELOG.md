@@ -4,11 +4,16 @@
 
 All notable changes to this extension are documented here.
 
-## Unreleased
+## 0.2.2 - 2026-06-14
 
 - Added schema support for aggregate, enum, and function-literal brace styles.
 - Added the readable binary-operator wrapping direction option.
 - Made `.adfmt` named values PascalCase and case-sensitive.
+- Added a command that creates or opens a workspace `.adfmt` file.
+- Added a configurable timeout for formatter processes.
+- Rejected in-place arguments that conflict with stdin-based editor formatting.
+- Added automatic discovery of the default Windows Inno Setup installation.
+- Improved execution tracing and missing-executable guidance.
 
 ## 0.2.0 - 2026-06-13
 

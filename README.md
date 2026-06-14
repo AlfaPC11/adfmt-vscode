@@ -4,6 +4,9 @@
 
 VS Code integration for Alfa's D Formatter.
 
+The repository includes the version-matched `adfmt-0.2.2.vsix` package for
+offline installation and release verification.
+
 ## Features
 
 - Formats D documents with `adfmt`.
@@ -16,6 +19,13 @@ VS Code integration for Alfa's D Formatter.
   through the Red Hat YAML extension.
 - Uses the nearest `.adfmt` file because the formatter runs with the source
   document's directory as its working directory.
+- Creates or opens a project `.adfmt` file with the
+  `adfmt: Create or Open Configuration` command.
+- Rejects in-place CLI arguments that are incompatible with VS Code's
+  standard-input formatting protocol.
+- Stops formatter processes that exceed the configurable timeout.
+- Detects the default Inno Setup installation at
+  `%LOCALAPPDATA%\Programs\adfmt\adfmt.exe` on Windows.
 
 ## Requirements
 
@@ -39,11 +49,14 @@ does not compete with this formatter.
 
 - `adfmt.executablePath`: executable path or command name.
 - `adfmt.arguments`: additional command-line arguments.
+- `adfmt.formatTimeout`: formatting timeout in milliseconds.
 - `adfmt.trace.server`: output-channel logging level.
 
 ## Commands
 
 - `adfmt: Check Installation`: verifies that the configured executable starts.
+- `adfmt: Create or Open Configuration`: creates a minimal `.adfmt` in the
+  selected workspace folder, or opens the existing file.
 - `adfmt: Show Output`: opens formatter diagnostics.
 
 ## License
