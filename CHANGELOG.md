@@ -4,6 +4,11 @@
 
 All notable changes to this extension are documented here.
 
+## Unreleased
+
+- Added schema support for aggregate, enum, and function-literal brace styles.
+- Added the readable binary-operator wrapping direction option.
+
 ## 0.2.0 - 2026-06-13
 
 - Added Marketplace publication metadata and support documentation.

@@ -92,7 +92,16 @@
         "Declarations": {
           "$ref": "#/$defs/braceStyle"
         },
+        "Aggregates": {
+          "$ref": "#/$defs/braceStyle"
+        },
+        "Enums": {
+          "$ref": "#/$defs/braceStyle"
+        },
         "Functions": {
+          "$ref": "#/$defs/braceStyle"
+        },
+        "FunctionLiterals": {
           "$ref": "#/$defs/braceStyle"
         },
         "ControlStatements": {
@@ -139,6 +148,13 @@
         },
         "SplitOperatorAtLineEnd": {
           "type": "boolean"
+        },
+        "BinaryOperators": {
+          "type": "string",
+          "enum": [
+            "before",
+            "after"
+          ]
         },
         "ReflowPropertyChains": {
           "type": "boolean"
@@ -202,7 +218,16 @@
     "DeclarationBraceStyle": {
       "$ref": "#/$defs/braceStyle"
     },
+    "AggregateBraceStyle": {
+      "$ref": "#/$defs/braceStyle"
+    },
+    "EnumBraceStyle": {
+      "$ref": "#/$defs/braceStyle"
+    },
     "FunctionBraceStyle": {
+      "$ref": "#/$defs/braceStyle"
+    },
+    "FunctionLiteralBraceStyle": {
       "$ref": "#/$defs/braceStyle"
     },
     "ControlBraceStyle": {
@@ -237,6 +262,13 @@
     },
     "SplitOperatorAtLineEnd": {
       "type": "boolean"
+    },
+    "BinaryOperatorBreakStyle": {
+      "type": "string",
+      "enum": [
+        "before",
+        "after"
+      ]
     },
     "ReflowPropertyChains": {
       "type": "boolean"
