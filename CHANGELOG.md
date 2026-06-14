@@ -8,6 +8,7 @@ All notable changes to this extension are documented here.
 
 - Added schema support for aggregate, enum, and function-literal brace styles.
 - Added the readable binary-operator wrapping direction option.
+- Made `.adfmt` named values PascalCase and case-sensitive.
 
 ## 0.2.0 - 2026-06-13
 

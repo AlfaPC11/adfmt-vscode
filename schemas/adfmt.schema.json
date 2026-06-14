@@ -7,20 +7,15 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "Language": {
-      "const": "D",
-      "description": "Source language formatted by this configuration."
-    },
     "BasedOnStyle": {
       "type": "string",
       "enum": [
         "Alfa",
-        "dfmt",
+        "Dfmt",
         "Allman",
-        "K&R",
-        "KNR",
+        "Knr",
         "Stroustrup",
-        "OTBS",
+        "Otbs",
         "Linux",
         "Compact"
       ],
@@ -40,10 +35,10 @@
     "LineEnding": {
       "type": "string",
       "enum": [
-        "default",
-        "lf",
-        "cr",
-        "crlf"
+        "Default",
+        "Lf",
+        "Cr",
+        "Crlf"
       ]
     },
     "Indent": {
@@ -62,10 +57,8 @@
         "Style": {
           "type": "string",
           "enum": [
-            "space",
-            "tab",
-            "never",
-            "always"
+            "Space",
+            "Tab"
           ]
         },
         "AlignSwitchStatements": {
@@ -152,8 +145,8 @@
         "BinaryOperators": {
           "type": "string",
           "enum": [
-            "before",
-            "after"
+            "Before",
+            "After"
           ]
         },
         "ReflowPropertyChains": {
@@ -194,10 +187,8 @@
     "UseTab": {
       "type": "string",
       "enum": [
-        "never",
-        "always",
-        "space",
-        "tab"
+        "Space",
+        "Tab"
       ]
     },
     "AlignSwitchStatements": {
@@ -266,8 +257,8 @@
     "BinaryOperatorBreakStyle": {
       "type": "string",
       "enum": [
-        "before",
-        "after"
+        "Before",
+        "After"
       ]
     },
     "ReflowPropertyChains": {
@@ -297,23 +288,19 @@
     "braceStyle": {
       "type": "string",
       "enum": [
-        "allman",
-        "otbs",
-        "stroustrup",
-        "knr"
+        "Allman",
+        "Otbs",
+        "Stroustrup",
+        "Knr"
       ]
     },
     "templateConstraintStyle": {
       "type": "string",
       "enum": [
-        "conditional-newline-indent",
-        "conditional-newline",
-        "always-newline",
-        "always-newline-indent",
-        "conditional_newline_indent",
-        "conditional_newline",
-        "always_newline",
-        "always_newline_indent"
+        "ConditionalNewlineIndent",
+        "ConditionalNewline",
+        "AlwaysNewline",
+        "AlwaysNewlineIndent"
       ]
     }
   }
