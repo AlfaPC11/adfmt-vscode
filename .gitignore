@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant
 
 dist/
+.test-dist/
 node_modules/
 *.vsix
-!adfmt-0.2.2.vsix
+!adfmt-0.3.0.vsix

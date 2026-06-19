@@ -303,5 +303,927 @@
         "AlwaysNewlineIndent"
       ]
     }
-  }
+  },
+  "allOf": [
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "IndentWidth"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "Width"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "ContinuationIndentWidth"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "ContinuationWidth"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "TabWidth"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "TabWidth"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "UseTab"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "Style"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "AlignSwitchStatements"
+            ]
+          },
+          {
+            "required": [
+              "IndentCaseLabels"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "AlignSwitchStatements"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "AlignSwitchStatements"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "AlignSwitchStatements"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "CaseLabels"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "IndentCaseLabels"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "AlignSwitchStatements"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "IndentCaseLabels"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "CaseLabels"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "AlignSwitchStatements"
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "CaseLabels"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "OutdentAttributes"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "OutdentAttributes"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SingleIndent"
+            ]
+          },
+          {
+            "required": [
+              "Indent"
+            ],
+            "properties": {
+              "Indent": {
+                "required": [
+                  "SingleContinuationIndent"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "BraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "Default"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "DeclarationBraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "Declarations"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "AggregateBraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "Aggregates"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "EnumBraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "Enums"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "FunctionBraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "Functions"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "FunctionLiteralBraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "FunctionLiterals"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "ControlBraceStyle"
+            ]
+          },
+          {
+            "required": [
+              "Braces"
+            ],
+            "properties": {
+              "Braces": {
+                "required": [
+                  "ControlStatements"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceAfterCast"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "AfterCast"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceAfterKeywords"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "AfterKeywords"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceBeforeFunctionParameters"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "BeforeFunctionParameters"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SelectiveImportSpace"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "SelectiveImports"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceBeforeAssociativeArrayColon"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "BeforeAssociativeArrayColon"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceBeforeNamedArgumentColon"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "BeforeNamedArgumentColon"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceBeforeBraces"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "BeforeBraces"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SpaceAroundBinaryOperators"
+            ]
+          },
+          {
+            "required": [
+              "Spacing"
+            ],
+            "properties": {
+              "Spacing": {
+                "required": [
+                  "AroundBinaryOperators"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "KeepLineBreaks"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "KeepExistingLineBreaks"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SplitOperatorAtLineEnd"
+            ]
+          },
+          {
+            "required": [
+              "BinaryOperatorBreakStyle"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SplitOperatorAtLineEnd"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "SplitOperatorAtLineEnd"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SplitOperatorAtLineEnd"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "BinaryOperators"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "BinaryOperatorBreakStyle"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "SplitOperatorAtLineEnd"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "BinaryOperatorBreakStyle"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "BinaryOperators"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "SplitOperatorAtLineEnd"
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "BinaryOperators"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "ReflowPropertyChains"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "ReflowPropertyChains"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "TemplateConstraintStyle"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "TemplateConstraints"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "SingleTemplateConstraintIndent"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "SingleTemplateConstraintIndent"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "WrappingNewlinePenalty"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "NewlinePenalty"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "WrappingLongLinePenalty"
+            ]
+          },
+          {
+            "required": [
+              "Wrapping"
+            ],
+            "properties": {
+              "Wrapping": {
+                "required": [
+                  "LongLinePenalty"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "not": {
+        "allOf": [
+          {
+            "required": [
+              "CompactLabeledStatements"
+            ]
+          },
+          {
+            "required": [
+              "Statements"
+            ],
+            "properties": {
+              "Statements": {
+                "required": [
+                  "CompactLabels"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
 }

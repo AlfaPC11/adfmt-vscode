@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # node24
+      - uses: actions/setup-node@f4a67bbeca970f103397d3d2b9462cf787cd2980 # node24
+        with:
+          node-version: "24"
+      - name: Enable pnpm
+        shell: sh
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.3.0 --activate
+      - name: Install dependencies
+        shell: sh
+        run: pnpm install --frozen-lockfile
+      - name: Verify, test, and package
+        shell: sh
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          test "$GITHUB_REF_NAME" = "v$VERSION"
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          test "$PACKAGE_VERSION" = "$VERSION"
+          pnpm test
+          pnpm package
+          test -f "adfmt-$VERSION.vsix"
+      - name: Publish GitHub Release
+        shell: sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          gh release create "$GITHUB_REF_NAME" "adfmt-$VERSION.vsix" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "adfmt for VS Code $VERSION" \
+            --generate-notes \
+            --verify-tag

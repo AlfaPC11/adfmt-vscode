@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant
 
-import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import * as vscode from "vscode";
+import { runAdfmt } from "./runner.js";
 
 const output = vscode.window.createOutputChannel("adfmt");
-const defaultConfiguration = `# yaml-language-server: $schema=https://raw.githubusercontent.com/AlfaPC11/adfmt-vscode/main/schemas/adfmt.schema.json
+const defaultConfiguration = `# yaml-language-server: $schema=https://raw.githubusercontent.com/AlfaPC11/adfmt-vscode/v0.3.0/schemas/adfmt.schema.json
 BasedOnStyle: Alfa
 `;
 
@@ -14,6 +14,7 @@ interface AdfmtSettings {
   executablePath: string;
   arguments: string[];
   timeout: number;
+  maxOutputBytes: number;
   trace: "off" | "messages" | "verbose";
 }
 
@@ -43,11 +44,20 @@ class AdfmtFormattingProvider
     trace(settings, `Formatting ${document.uri.toString()}`);
 
     try {
-      const { stdout, stderr } = await runAdfmt(
+      const arguments_ =
+        document.uri.scheme === "file"
+          ? [...settings.arguments, "--stdin-filename", document.uri.fsPath]
+          : settings.arguments;
+      trace(
         settings,
+        `Running ${resolveExecutablePath(settings.executablePath)} ${arguments_.join(" ")}`.trimEnd(),
+      );
+      const { stdout, stderr } = await runAdfmt(
+        toRunnerSettings(settings, arguments_),
         document.getText(),
         workingDirectory,
         token,
+        (message) => trace(settings, message),
       );
       if (stderr && settings.trace === "verbose") {
         output.appendLine(stderr.trimEnd());
@@ -75,7 +85,10 @@ export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
     output,
     vscode.languages.registerDocumentFormattingEditProvider(
-      { language: "d", scheme: "*" },
+      [
+        { language: "d", scheme: "file" },
+        { language: "d", scheme: "untitled" },
+      ],
       new AdfmtFormattingProvider(),
     ),
     vscode.commands.registerCommand("adfmt.checkInstallation", async () => {
@@ -84,7 +97,7 @@ export function activate(context: vscode.ExtensionContext): void {
       const cancellation = new vscode.CancellationTokenSource();
       try {
         const result = await runAdfmt(
-          { ...settings, arguments: ["--version"] },
+          toRunnerSettings(settings, ["--version"]),
           "",
           workspaceDirectory(uri),
           cancellation.token,
@@ -113,7 +126,13 @@ export function activate(context: vscode.ExtensionContext): void {
       const configurationUri = vscode.Uri.joinPath(folder.uri, ".adfmt");
       try {
         await vscode.workspace.fs.stat(configurationUri);
-      } catch {
+      } catch (error: unknown) {
+        if (
+          !(error instanceof vscode.FileSystemError) ||
+          error.code !== "FileNotFound"
+        ) {
+          throw error;
+        }
         await vscode.workspace.fs.writeFile(
           configurationUri,
           Buffer.from(defaultConfiguration, "utf8"),
@@ -134,6 +153,7 @@ function readSettings(uri?: vscode.Uri): AdfmtSettings {
     executablePath: configuration.get("executablePath", "adfmt"),
     arguments: configuration.get<string[]>("arguments", []),
     timeout: configuration.get("formatTimeout", 15_000),
+    maxOutputBytes: configuration.get("maxOutputBytes", 32 * 1024 * 1024),
     trace: configuration.get<AdfmtSettings["trace"]>("trace.server", "off"),
   };
 }
@@ -188,6 +208,9 @@ function formatExecutionError(error: unknown, executable: string): string {
   if (executionError.code === "ETIMEDOUT") {
     return `adfmt exceeded the configured formatting timeout: ${detail}`;
   }
+  if (executionError.code === "EOUTPUTLIMIT") {
+    return `adfmt exceeded the configured output limit: ${detail}`;
+  }
   return `adfmt failed: ${detail || String(error)}`;
 }
 
@@ -198,8 +221,25 @@ function findIncompatibleArgument(arguments_: string[]): string | undefined {
       argument === "--in-place" ||
       argument === "-i" ||
       argument.startsWith("--inplace=") ||
-      argument.startsWith("--in-place="),
+      argument.startsWith("--in-place=") ||
+      argument === "--stdin-filename" ||
+      argument.startsWith("--stdin-filename="),
   );
+}
+
+function toRunnerSettings(
+  settings: AdfmtSettings,
+  arguments_: string[],
+): Pick<
+  AdfmtSettings,
+  "executablePath" | "timeout" | "maxOutputBytes"
+> & { arguments: string[] } {
+  return {
+    executablePath: resolveExecutablePath(settings.executablePath),
+    arguments: arguments_,
+    timeout: settings.timeout,
+    maxOutputBytes: settings.maxOutputBytes,
+  };
 }
 
 function resolveExecutablePath(configuredPath: string): string {
@@ -218,76 +258,4 @@ function resolveExecutablePath(configuredPath: string): string {
     "adfmt.exe",
   );
   return existsSync(installedPath) ? installedPath : configuredPath;
-}
-
-function runAdfmt(
-  settings: AdfmtSettings,
-  source: string,
-  workingDirectory: string | undefined,
-  token: vscode.CancellationToken,
-): Promise<{ stdout: string; stderr: string }> {
-  return new Promise((resolve, reject) => {
-    const executable = resolveExecutablePath(settings.executablePath);
-    const startedAt = Date.now();
-    trace(
-      settings,
-      `Running ${executable} ${settings.arguments.join(" ")}`.trimEnd(),
-    );
-    const child = spawn(executable, settings.arguments, {
-      cwd: workingDirectory,
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    const stdout: Buffer[] = [];
-    const stderr: Buffer[] = [];
-    let settled = false;
-    const timeout = setTimeout(() => {
-      if (!settled) {
-        settled = true;
-        child.kill();
-        cancellation.dispose();
-        const error = new Error(
-          `${settings.timeout} ms`,
-        ) as NodeJS.ErrnoException;
-        error.code = "ETIMEDOUT";
-        reject(error);
-      }
-    }, settings.timeout);
-    const cancellation = token.onCancellationRequested(() => child.kill());
-
-    child.stdout.on("data", (chunk: Buffer) => stdout.push(chunk));
-    child.stderr.on("data", (chunk: Buffer) => stderr.push(chunk));
-    child.on("error", (error) => {
-      if (settled) {
-        return;
-      }
-      settled = true;
-      clearTimeout(timeout);
-      cancellation.dispose();
-      reject(error);
-    });
-    child.on("close", (code, signal) => {
-      if (settled) {
-        return;
-      }
-      settled = true;
-      clearTimeout(timeout);
-      cancellation.dispose();
-      const stdoutText = Buffer.concat(stdout).toString("utf8");
-      const stderrText = Buffer.concat(stderr).toString("utf8");
-      trace(settings, `adfmt completed in ${Date.now() - startedAt} ms`);
-      if (token.isCancellationRequested) {
-        resolve({ stdout: source, stderr: stderrText });
-      } else if (code === 0) {
-        resolve({ stdout: stdoutText, stderr: stderrText });
-      } else {
-        const error = new Error(
-          `process exited with code ${String(code)}${signal ? ` (${signal})` : ""}`,
-        ) as NodeJS.ErrnoException & { stderr: string };
-        error.stderr = stderrText;
-        reject(error);
-      }
-    });
-
-    child.stdin.end(source);
-  });
 }

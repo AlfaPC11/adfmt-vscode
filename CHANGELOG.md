@@ -4,6 +4,19 @@
 
 All notable changes to this extension are documented here.
 
+## 0.3.0 - 2026-06-19
+
+- Passed the real document path through adfmt `--stdin-filename`.
+- Handled formatter stdin `EPIPE` without crashing the extension host.
+- Bounded stdout and stderr memory use with `adfmt.maxOutputBytes`.
+- Added automated process-runner tests and GitHub Actions CI.
+- Made the executable path machine-scoped instead of workspace-controlled.
+- Stopped enabling format-on-save without explicit user choice.
+- Pinned newly created configuration files to the matching schema tag.
+- Generated schema rules that reject every conflicting flat/nested alias pair.
+- Made VSIX package naming portable across Windows, Linux, and macOS.
+- Removed source maps and development-only files from the VSIX.
+
 ## 0.2.2 - 2026-06-14
 
 - Added schema support for aggregate, enum, and function-literal brace styles.

@@ -4,7 +4,7 @@
 
 VS Code integration for Alfa's D Formatter.
 
-The repository includes the version-matched `adfmt-0.2.2.vsix` package for
+The repository includes the version-matched `adfmt-0.3.0.vsix` package for
 offline installation and release verification.
 
 ## Features
@@ -12,8 +12,8 @@ offline installation and release verification.
 - Formats D documents with `adfmt`.
 - Registers `.d` files as the `d` language even when no separate D extension
   is installed.
-- Enables `editor.formatOnSave` and selects `alfa.adfmt` as the default D
-  formatter unless the user or workspace overrides those settings.
+- Selects `alfa.adfmt` as the default D formatter. Format-on-save remains an
+  explicit user or workspace choice.
 - Recognizes extensionless `.adfmt` files as YAML.
 - Provides validation, completion, and hover documentation for `.adfmt`
   through the Red Hat YAML extension.
@@ -24,6 +24,9 @@ offline installation and release verification.
 - Rejects in-place CLI arguments that are incompatible with VS Code's
   standard-input formatting protocol.
 - Stops formatter processes that exceed the configurable timeout.
+- Limits retained formatter output and handles early stdin closure safely.
+- Passes the real source path to adfmt so filename-specific EditorConfig rules
+  behave the same in VS Code and the CLI.
 - Detects the default Inno Setup installation at
   `%LOCALAPPDATA%\Programs\adfmt\adfmt.exe` on Windows.
 
@@ -50,6 +53,7 @@ does not compete with this formatter.
 - `adfmt.executablePath`: executable path or command name.
 - `adfmt.arguments`: additional command-line arguments.
 - `adfmt.formatTimeout`: formatting timeout in milliseconds.
+- `adfmt.maxOutputBytes`: memory limit for each formatter output stream.
 - `adfmt.trace.server`: output-channel logging level.
 
 ## Commands

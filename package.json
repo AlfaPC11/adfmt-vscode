@@ -2,7 +2,7 @@
   "name": "adfmt",
   "displayName": "adfmt - Alfa's D Formatter",
   "description": "Format D source files with adfmt and validate extensionless .adfmt YAML configuration files.",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "publisher": "alfa",
   "license": "BSD-3-Clause AND LicenseRef-Alfa-Patent-Grant",
   "author": {
@@ -93,7 +93,7 @@
         "adfmt.executablePath": {
           "type": "string",
           "default": "adfmt",
-          "scope": "resource",
+          "scope": "machine",
           "description": "Path or command name of the adfmt executable."
         },
         "adfmt.arguments": {
@@ -113,6 +113,14 @@
           "scope": "resource",
           "description": "Maximum time in milliseconds allowed for one formatting operation."
         },
+        "adfmt.maxOutputBytes": {
+          "type": "number",
+          "default": 33554432,
+          "minimum": 1048576,
+          "maximum": 134217728,
+          "scope": "resource",
+          "description": "Maximum bytes retained from each formatter output stream."
+        },
         "adfmt.trace.server": {
           "type": "string",
           "enum": [
@@ -128,8 +136,7 @@
     },
     "configurationDefaults": {
       "[d]": {
-        "editor.defaultFormatter": "alfa.adfmt",
-        "editor.formatOnSave": true
+        "editor.defaultFormatter": "alfa.adfmt"
       },
       "files.associations": {
         ".adfmt": "yaml"
@@ -145,8 +152,12 @@
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
     "compile": "tsc -p ./",
-    "check": "tsc -p ./ --noEmit",
-    "package": "vsce package --no-dependencies --out adfmt-${npm_package_version}.vsix",
+    "check": "pnpm run check:schema && tsc -p ./ --noEmit",
+    "check:schema": "node scripts/schema-conflicts.mjs --check",
+    "generate:schema": "node scripts/schema-conflicts.mjs",
+    "compile:test": "tsc -p tsconfig.test.json",
+    "test": "pnpm run check && pnpm run compile:test && node --test .test-dist/tests/runner.test.js",
+    "package": "node scripts/package.mjs",
     "publish:marketplace": "vsce publish --no-dependencies"
   },
   "devDependencies": {

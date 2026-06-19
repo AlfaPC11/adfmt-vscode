@@ -4,10 +4,16 @@
 .github/**
 .vscode/**
 node_modules/**
+dist/**/*.map
 src/**
+tests/**
+scripts/**
+.test-dist/**
 tsconfig.json
+tsconfig.test.json
 pnpm-lock.yaml
 pnpm-workspace.yaml
 .gitignore
 SECURITY.md
+SUPPORT.md
 *.vsix
