@@ -2,6 +2,10 @@
 
 # adfmt for VS Code
 
+> **Maintenance status:** This repository will not receive further updates or
+> regular commits. It will remain available, may be forked, and can still be
+> used as-is.
+
 VS Code integration for Alfa's D Formatter.
 
 The repository includes the version-matched `adfmt-0.3.0.vsix` package for
